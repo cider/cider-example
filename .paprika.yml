@@ -1,0 +1,20 @@
+# First, we must specify the Paprika master node to connect to.
+master:
+  url: "wss://paprika.example.com"
+# The following section could be skipped since that is the default config.
+slave:
+  label: "any"
+# Specify the repository to be pulled, which is like this repository.
+repository:
+  url: "git+https://github.com/paprikaci/paprikaci-example#master"
+# Specify the script to be run. What needs to be defined is the relative path
+# to the script within the repository, and also the program to be used to run
+# the script.
+script:
+  path: "scripts/loop"
+  runner: "bash"
+# Optinally you can also specify some additional environment variables which
+# will be present during the script execution.
+env:
+  - ITERATIONS=10
+  - MESSAGE=LOOP
