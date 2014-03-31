@@ -23,3 +23,26 @@ The configuration options can be combined, e.g. you can overwrite the script
 path on the command line while still getting the rest of the configuration from
 `.paprika.yml`. Environmental variables can be also used to overwrite the static
 configuration, but the command line flags always win the priority battle.
+
+## Demo Build Run ##
+
+```
+$ paprika build
+---> Locking the project workspace
+---> Waiting for a free executor
+---> Pulling the sources
+Cloning into '/tmp/paprika/github.com/paprikaci/paprika-example/src'...
+---> Running the script located at scripts/loop (using bash)
+LOOP
+LOOP
+LOOP
+LOOP
+LOOP
+LOOP
+LOOP
+LOOP
+LOOP
+LOOP
+---> Build finished
+Duration: 12.141151841s
+```
