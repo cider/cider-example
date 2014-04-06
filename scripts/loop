@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ -z "$ITERATIONS" ]; then
+	echo "ITERATIONS environment variable not set" 1>&2
+	exit 1
+fi
+if [ -z "$MESSAGE" ]; then
+	echo "MESSAGE environment variable not set" 1>&2
+	exit 1
+fi
+
 for i in $(seq $ITERATIONS); do
 	echo "$MESSAGE"
 	sleep 1
