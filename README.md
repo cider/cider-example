@@ -22,7 +22,7 @@ project repository, if you specify all the parameters explicitly. The whole
 build` is run as
 
 ```bash
-export PAPRIKA_TOKEN='secret'
+$ export PAPRIKA_MASTER_TOKEN='secret'
 $ paprika build \
         -master 'wss://paprika.example.com/connect:443' \
 		-slave 'any' \
@@ -35,13 +35,14 @@ $ paprika build \
 or
 
 ```bash
-$ export PAPRIKA_MASTER='wss://paprika.example.com/connect:443'
-$ export PAPRIKA_SLAVE='any'
-$ export PAPRIKA_REPOSITORY='git+https://github.com/paprikaci/paprika-example'
-$ export PAPRIKA_SCRIPT='scripts/loop'
-$ export PAPRIKA_RUNNER='bash'
-$ export PAPRIKA_ENV_ITERATIONS='10'
-$ export PAPRIKA_ENV_MESSAGE='LOOP'
+$ export PAPRIKA_MASTER_URL='wss://paprika.example.com/connect:443'
+$ export PAPRIKA_MASTER_TOKEN='secret'
+$ export PAPRIKA_SLAVE_LABEL='any'
+$ export PAPRIKA_REPOSITORY_URL='git+https://github.com/paprikaci/paprika-example'
+$ export PAPRIKA_SCRIPT_PATH='scripts/loop'
+$ export PAPRIKA_SCRIPT_RUNNER='bash'
+$ export PAPRIKA_SCRIPT_ENV_ITERATIONS='10'
+$ export PAPRIKA_SCRIPT_ENV_MESSAGE='LOOP'
 $ paprika build
 ```
 
@@ -55,11 +56,12 @@ configuration, but the command line flags always win the priority battle.
 ```
 $ paprika build
 ---> Connecting to wss://paprika.example.com/connect:443
+---> Sending the build request (using slave label "any")
 ---> Locking the project workspace
 ---> Waiting for a free executor
 ---> Pulling the sources
 Cloning into '/tmp/paprika/github.com/paprikaci/paprika-example/src'...
----> Running the script located at scripts/loop (using bash)
+---> Running the script located at scripts/loop (using runner "bash")
 LOOP
 LOOP
 LOOP
