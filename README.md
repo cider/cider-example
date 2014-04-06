@@ -1,5 +1,12 @@
 # How to build your project using Paprika #
 
+First of all, you need a single script that represents all the build steps.
+Paprika then takes a repository URL and the relative path of that script within
+the repository and runs the script on one of the build slaves. The script also
+has its associated runner, which would be `bash` for Bash scripts, for example.
+
+So, how to build your project using `paprika build`:
+
 1. Include `.paprika.yml` in your repository. This is optional but recommended.
 2. Run `paprika build`, either pointing to your `.paprika.yml`, or specifying
    all the required parameters on the command line. The common practice should
@@ -8,7 +15,7 @@
 3. Enjoy the output being streamed back into your console. You can interrupt
    the build by simply terminating `paprika`.
 
-So, to put it together, there are three levels how to configure the build:
+To put it together, there are three levels how to configure the build:
 
 1. Include `.paprika.yml` in your project.
 2. Use environment variables that `paprika build` understands.
@@ -22,20 +29,20 @@ project repository, if you specify all the parameters explicitly. The whole
 build` is run as
 
 ```bash
-$ export PAPRIKA_MASTER_TOKEN='secret'
 $ paprika build \
-        -master 'wss://paprika.example.com/connect:443' \
-		-slave 'any' \
-        -repository 'git+https://github.com/paprikaci/paprika-example#master' \
-        -script 'scripts/loop' \
-		-runner 'bash' \
-		-env 'ITERATIONS=10' -env 'MESSAGE=LOOP'
+    -master 'wss://paprika.example.com:443/connect' \
+    -token 'secret' \ # not the best thing you can do, though
+    -slave 'any' \
+    -repository 'git+https://github.com/paprikaci/paprika-example#master' \
+    -script 'scripts/loop' \
+    -runner 'bash' \
+    -env 'ITERATIONS=10' -env 'MESSAGE=LOOP'
 ```
 
 or
 
 ```bash
-$ export PAPRIKA_MASTER_URL='wss://paprika.example.com/connect:443'
+$ export PAPRIKA_MASTER_URL='wss://paprika.example.com:443/connect'
 $ export PAPRIKA_MASTER_TOKEN='secret'
 $ export PAPRIKA_SLAVE_LABEL='any'
 $ export PAPRIKA_REPOSITORY_URL='git+https://github.com/paprikaci/paprika-example'
@@ -55,8 +62,8 @@ configuration, but the command line flags always win the priority battle.
 
 ```
 $ paprika build
----> Connecting to wss://paprika.example.com/connect:443
----> Sending the build request (using slave label "any")
+---> Connecting to wss://paprika.example.com:443/connect
+---> Sending the build request (using method "paprika.any.bash")
 ---> Locking the project workspace
 ---> Waiting for a free executor
 ---> Pulling the sources
@@ -73,5 +80,7 @@ LOOP
 LOOP
 LOOP
 ---> Build finished
-Duration: 12.141151841s
+Pull  duration:  2.055263854s
+Build duration: 10.107692225s
+Total duration: 12.162956079s
 ```
