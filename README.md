@@ -10,14 +10,40 @@
 
 So, to put it together, there are three levels how to configure the build:
 
-1. Use `paprika build` flags.
+1. Include `.paprika.yml` in your project.
 2. Use environment variables that `paprika build` understands.
-3. Include `.paprika.yml` in your project.
+3. Use `paprika build` flags.
 
 Clearly `.paprika.yml` is the most practical solution since there is no need
 to type long commands afterwards. On the other hand, you can trigger a build
 with `.paprika.yml` completely missing, for example without even cloning the
-project repository, if you specify all the parameters explicitly.
+project repository, if you specify all the parameters explicitly. The whole
+`.paprika.yml` as presented in this repository could be skipped if `paprika
+build` is run as
+
+```bash
+export PAPRIKA_TOKEN='secret'
+$ paprika build \
+        -master 'wss://paprika.example.com/connect:443' \
+		-slave 'any' \
+        -repository 'git+https://github.com/paprikaci/paprika-example#master' \
+        -script 'scripts/loop' \
+		-runner 'bash' \
+		-env 'ITERATIONS=10' -env 'MESSAGE=LOOP'
+```
+
+or
+
+```bash
+$ export PAPRIKA_MASTER='wss://paprika.example.com/connect:443'
+$ export PAPRIKA_SLAVE='any'
+$ export PAPRIKA_REPOSITORY='git+https://github.com/paprikaci/paprika-example'
+$ export PAPRIKA_SCRIPT='scripts/loop'
+$ export PAPRIKA_RUNNER='bash'
+$ export PAPRIKA_ENV_ITERATIONS='10'
+$ export PAPRIKA_ENV_MESSAGE='LOOP'
+$ paprika build
+```
 
 The configuration options can be combined, e.g. you can overwrite the script
 path on the command line while still getting the rest of the configuration from
@@ -28,6 +54,7 @@ configuration, but the command line flags always win the priority battle.
 
 ```
 $ paprika build
+---> Connecting to wss://paprika.example.com/connect:443
 ---> Locking the project workspace
 ---> Waiting for a free executor
 ---> Pulling the sources
