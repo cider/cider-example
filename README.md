@@ -66,8 +66,10 @@ $ paprika build
 ---> Sending the build request (using method "paprika.any.bash")
 ---> Locking the project workspace
 ---> Waiting for a free executor
+
 ---> Pulling the sources
 Cloning into '/tmp/paprika/github.com/paprikaci/paprika-example/src'...
+
 ---> Running the script located at scripts/loop (using runner "bash")
 LOOP
 LOOP
@@ -79,7 +81,8 @@ LOOP
 LOOP
 LOOP
 LOOP
----> Build finished
+
+---> Build succeeded
 Pull  duration:  2.055263854s
 Build duration: 10.107692225s
 Total duration: 12.162956079s
