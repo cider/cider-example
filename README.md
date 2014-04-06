@@ -60,6 +60,8 @@ configuration, but the command line flags always win the priority battle.
 
 ## Demo Build Run ##
 
+### Success ###
+
 ```
 $ paprika build
 ---> Connecting to wss://paprika.example.com:443/connect
@@ -86,4 +88,46 @@ LOOP
 Pull  duration:  2.055263854s
 Build duration: 10.107692225s
 Total duration: 12.162956079s
+```
+
+### Failure ###
+
+In case the build gets stuck downloading the sources or executing, it can be
+interrupted by simply terminating `paprika` using CTRL + C or so. In that case
+`paprika` terminates with a non-zero exit status in much the same way as if the
+build script itself would have failed:
+
+```
+$ paprika build
+---> Connecting to wss://paprika.example.com:443/connect
+---> Sending the build request (using method "paprika.any.bash")
+---> Locking the project workspace
+---> Waiting for a free executor
+
+---> Pulling the sources
+From https://github.com//paprikaci/paprika-example
+ * branch            master     -> FETCH_HEAD
+   55b2599..b2f956c  master     -> origin/master
+Already on 'master'
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+Updating 55b2599..b2f956c
+Fast-forward
+ README.md | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+---> Running the script located at scripts/loop (using runner "bash")
+LOOP
+LOOP
+LOOP
+^C---> Interrupting the build job, this can take a few seconds
+
+---> Build failed
+Pull  duration: 4.286029948s 
+Build duration: 3.134319047s 
+Total duration: 7.420348995s 
+
+Error: signal: terminated
+$ echo $?
+1
 ```
