@@ -1,0 +1,9 @@
+dependencies:
+  override:
+    - mkdir -p _workspace/src/github.com/paprikaci
+    - GOPATH="$(pwd)/_workspace" go get github.com/tools/godep
+    - cd _workspace/src/github.com/paprikaci && git clone https://github.com/paprikaci/paprika
+    - export GOPATH="$(pwd)/_workspace" && cd _workspace/src/github.com/paprikaci/paprika && "$GOPATH/bin/godep" go install
+test:
+  override:
+    - _workspace/bin/paprika build -slave macosx
