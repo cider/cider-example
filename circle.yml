@@ -1,9 +1,9 @@
 dependencies:
   override:
-    - mkdir -p _workspace/src/github.com/paprikaci
+    - mkdir -p _workspace/src/github.com/cider
     - GOPATH="$(pwd)/_workspace" go get github.com/tools/godep
-    - cd _workspace/src/github.com/paprikaci && git clone https://github.com/paprikaci/paprika
-    - export GOPATH="$(pwd)/_workspace" && cd _workspace/src/github.com/paprikaci/paprika && "$GOPATH/bin/godep" go install
+    - cd _workspace/src/github.com/cider && git clone https://github.com/cider/cider
+    - export GOPATH="$(pwd)/_workspace" && cd _workspace/src/github.com/cider/cider && "$GOPATH/bin/godep" go install
 test:
   override:
-    - _workspace/bin/paprika build -slave macosx
+    - _workspace/bin/cider build -slave macosx
