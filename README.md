@@ -2,8 +2,7 @@
 
 First of all, you need a single script that represents all the build steps.
 Cider then takes a repository URL and the relative path of that script within
-the repository and runs the script on one of the build slaves. The script also
-has its associated runner, which would be `bash` for Bash scripts, for example.
+that repository and runs the script on one of the build slaves.
 
 So, how to build your project using `cider build`:
 
@@ -13,7 +12,7 @@ So, how to build your project using `cider build`:
    be to put `cider.yml` into the top level directory of the repository and
    simply run `cider build` there.
 3. Enjoy the output being streamed back into your console. You can interrupt
-   the build by simply terminating `cider`.
+   the build by simply terminating `cider` with `CTRL + C`.
 
 To put it together, there are three levels how to configure the build:
 
